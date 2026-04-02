@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ── */
+@layer base {
+  :root {
+    --background:        0 0% 96%;
+    --foreground:        140 8% 12%;
+    --card:              140 6% 94%;
+    --card-foreground:   140 8% 12%;
+    --popover:           140 6% 94%;
+    --popover-foreground:140 8% 12%;
+    --primary:           142 60% 55%;
+    --primary-foreground:140 100% 4%;
+    --secondary:         140 10% 88%;
+    --secondary-foreground:140 8% 20%;
+    --muted:             140 8% 88%;
+    --muted-foreground:  140 8% 42%;
+    --accent:            142 60% 55%;
+    --accent-foreground: 140 100% 4%;
+    --destructive:       0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border:            140 10% 82%;
+    --input:             140 10% 82%;
+    --ring:              142 60% 45%;
+    --radius:            0.75rem;
+  }
+
+  .dark {
+    --background:        140 30% 4%;
+    --foreground:        140 15% 91%;
+    --card:              140 20% 7%;
+    --card-foreground:   140 15% 91%;
+    --popover:           140 20% 7%;
+    --popover-foreground:140 15% 91%;
+    --primary:           142 60% 55%;
+    --primary-foreground:140 100% 4%;
+    --secondary:         140 15% 12%;
+    --secondary-foreground:140 10% 80%;
+    --muted:             140 15% 14%;
+    --muted-foreground:  140 10% 48%;
+    --accent:            142 60% 55%;
+    --accent-foreground: 140 100% 4%;
+    --destructive:       0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border:            140 15% 16%;
+    --input:             140 15% 16%;
+    --ring:              142 60% 45%;
+  }
+
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-syne, 'Segoe UI', Arial, sans-serif);
+  }
+  ::selection { background: hsl(var(--primary) / 0.3); }
+
+  /* Smooth scrolling */
+  html { scroll-behavior: smooth; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/40; }
+
+  /* Font variables */
+  .font-mono, code, pre { font-family: var(--font-jetbrains, 'Courier New', monospace); }
+}
+
+/* ── Reusable component classes ── */
+@layer components {
+
+  /* Cards */
+  .card-base {
+    @apply rounded-2xl border border-border bg-card/80 backdrop-blur-sm;
+  }
+  .card-hover {
+    @apply transition-all duration-200 hover:border-primary/30 hover:shadow-sm;
+  }
+  .card-hover:hover {
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15),
+                0 4px 20px hsl(var(--primary) / 0.05);
+  }
+
+  /* Info boxes */
+  .green-box {
+    @apply rounded-xl border border-primary/20 bg-primary/5 p-4;
+  }
+  .amber-box {
+    @apply rounded-xl border border-amber-500/20 bg-amber-500/5 p-4;
+  }
+
+  /* Badges */
+  .badge-green {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full
+           border border-primary/25 bg-primary/8
+           text-primary text-xs font-bold uppercase tracking-wider;
+  }
+
+  /* Step number circles */
+  .step-num {
+    @apply w-6 h-6 rounded-lg bg-primary/10 border border-primary/20
+           text-primary font-bold text-xs
+           flex items-center justify-center flex-shrink-0 font-mono;
+  }
+
+  /* Form elements */
+  .form-input {
+    @apply w-full h-10 px-3.5 rounded-xl border border-input
+           bg-background text-sm
+           focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+           transition-colors placeholder:text-muted-foreground;
+  }
+
+  /* Hero section wrapper */
+  .hero-bg {
+    @apply relative overflow-hidden;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      hsl(var(--primary) / 0.07) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Animations */
+  .animate-fade-up {
+    animation: fadeUp 0.5s ease both;
+  }
+  .animate-fade-up-1 {
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+  .animate-fade-up-2 {
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+  .animate-fade-up-3 {
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Utility overrides ── */
+@layer utilities {
+  /* Transparent backgrounds with opacity */
+  .bg-primary\/3  { background-color: hsl(var(--primary) / 0.03); }
+  .bg-primary\/4  { background-color: hsl(var(--primary) / 0.04); }
+  .bg-primary\/5  { background-color: hsl(var(--primary) / 0.05); }
+  .bg-primary\/6  { background-color: hsl(var(--primary) / 0.06); }
+  .bg-primary\/8  { background-color: hsl(var(--primary) / 0.08); }
+
+  .border-primary\/15 { border-color: hsl(var(--primary) / 0.15); }
+  .border-primary\/20 { border-color: hsl(var(--primary) / 0.20); }
+  .border-primary\/25 { border-color: hsl(var(--primary) / 0.25); }
+  .border-primary\/30 { border-color: hsl(var(--primary) / 0.30); }
+  .border-primary\/40 { border-color: hsl(var(--primary) / 0.40); }
+
+  .bg-destructive\/8  { background-color: hsl(var(--destructive) / 0.08); }
+  .border-destructive\/25 { border-color: hsl(var(--destructive) / 0.25); }
+}
+
+/* ── details/summary FAQ accordion ── */
+details > summary { cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] > summary .rotate-open { transform: rotate(45deg); }
+
+/* ── Datetime input styling (native fallback) ── */
+input[type="datetime-local"] {
+  @apply form-input;
+  color-scheme: light;
+}
+.dark input[type="datetime-local"] {
+  color-scheme: dark;
+}
